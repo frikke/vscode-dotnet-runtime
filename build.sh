@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 RED=`tput setaf 1`
 GREEN=`tput setaf 2`
 NC=`tput sgr0`
@@ -81,6 +82,8 @@ then
     exit 1
 fi
 popd
+
+/bin/bash ./mock-webpack.sh
 
 echo ""
 echo "${GREEN}Build succeeded!${NC}"

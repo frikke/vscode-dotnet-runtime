@@ -1,10 +1,13 @@
-/* --------------------------------------------------------------------------------------------
- * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
+/*---------------------------------------------------------------------------------------------
+*  Licensed to the .NET Foundation under one or more agreements.
+*  The .NET Foundation licenses this file to you under the MIT license.
+*--------------------------------------------------------------------------------------------*/
 import * as chai from 'chai';
 import { InstallationValidator } from '../../Acquisition/InstallationValidator';
 import { MockEventStream } from '../mocks/MockObjects';
+import * as os from 'os';
+import { GetDotnetInstallInfo } from '../../Acquisition/DotnetInstall';
+
 const assert = chai.assert;
 
 suite('InstallationValidator Unit Tests', () => {
@@ -12,6 +15,8 @@ suite('InstallationValidator Unit Tests', () => {
     const validator = new InstallationValidator(eventStream);
 
     test('Error With Invalid File Structure', async () => {
-        assert.throws(() => validator.validateDotnetInstall('', ''), `Validation of .dotnet installation for version  failed:`);
+        const install = GetDotnetInstallInfo('7.0', 'runtime', 'local', os.arch());
+        assert.throws(() => validator.validateDotnetInstall(install, ''), `Validation of .dotnet installation for version`);
+        assert.throws(() => validator.validateDotnetInstall(install, ''), `fail`);
     });
 });
